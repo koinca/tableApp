@@ -1,4 +1,4 @@
-This is a client only single page app which allow you to create a field set dynamically by adding fields.  It also supports adding/editing of the records based on the field set definition.  Records can also be exported with json/csv format.
+This is a client only single page app which allow you to create a field set dynamically by adding fields without internet connection.  It also supports adding/editing of the records based on the field set definition.  Records can be exported in json/csv format.
 
 It includes the following components:
 - angularJS

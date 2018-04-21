@@ -112,10 +112,8 @@ angular.module('myApp')
         //------------- modal stuff
 
         var $ctrl = this;
-        $ctrl.recordForm = 'aaa';
-        $ctrl.record = $scope.rows[0]; //['item1', 'item2', 'item3'];
-        $ctrl.items = $scope.rows; //['item1', 'item2', 'item3'];
-
+        $ctrl.record = null;
+        $ctrl.items = $scope.rows;
         $ctrl.animationsEnabled = false;
 
         $ctrl.open = function(size, parentSelector) {

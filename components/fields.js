@@ -5,9 +5,6 @@ angular.module('myApp')
         return {
             restrict: 'E',
             scope: {
-                readOnly: '=',
-                btnDisplay: '@',
-                placeHolder: '@',
                 inData: '='
             },
             template: "<div class='row'>" +
@@ -56,7 +53,7 @@ angular.module('myApp')
                     this.fields.splice(index, 1);
                 };
 
-                console.log('fields controller');
+                console.log('fields directive');
             }
         };
   }]);

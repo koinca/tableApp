@@ -15,28 +15,30 @@ angular.module('myApp')
         $ctrl.ok = function() {
           var idList = _.map($ctrl.items, 'id') || [];
           var index = idList.indexOf($ctrl.record.id);
-          var dontClose = false;
+          var dontClose = false,
+              isEmpty = false,
+              isDup = false;
           if(!$ctrl.createMode) {
               //edit mode
               //check dup
               if(index!=-1 && $ctrl.origRec.id != $ctrl.record.id) {
                   dontClose = true;
-                  $ctrl.message = 'ID field must be unique.';
+                  isDup = true;
+              } else if (_.isEmpty($ctrl.record.id)) {
+                 dontClose = true;
+                 isEmpty = true;
               } else {
                   // Replace item at index using native splice
                   $ctrl.items.splice(index, 1, $ctrl.record);
-
               }
-
           } else {
               //create mode
               if(index != -1) {
                  dontClose = true;
-                 $ctrl.message = 'ID field must be unique.';
-
+                 isDup = true;
               } else if (_.isEmpty($ctrl.record.id)) {
                  dontClose = true;
-                 $ctrl.message = 'ID field cannot be empty.';
+                 isEmpty = true;
               } else {
                 $ctrl.items.push($ctrl.record);
               }
@@ -45,10 +47,17 @@ angular.module('myApp')
 
           if(!dontClose) {
             $uibModalInstance.close($ctrl.selected.item);
+          } else {
+               if (isEmpty) {
+                   $ctrl.message = 'ID field cannot be empty.';
+               } else if (isDup) {
+                  $ctrl.message = 'ID field must be unique.';
+               }
           }
         };
 
         $ctrl.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
+
     });
