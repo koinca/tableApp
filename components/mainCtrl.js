@@ -24,6 +24,8 @@ angular.module('myApp')
         $scope.reverseSort = false;
 
         $scope.fieldsPanelOpen = true;
+
+        //hide/show field set definition panel
         $scope.fieldsPanelClickHandler = function() {
             $scope.fieldsPanelOpen = !$scope.fieldsPanelOpen;
             if (!$scope.fieldsPanelOpen) {
@@ -33,12 +35,14 @@ angular.module('myApp')
             }
         }
 
+        //sort column
         $scope.sortHandler = function(field) {
             this.orderByField = field.name;
             this.reverseSort = !this.reverseSort;
         }.bind($scope);
 
 
+        //modifying a record
         $scope.editHandler = function (record) {
             $ctrl.record = angular.copy(record);
             //merge additional fields if it gets added
@@ -53,6 +57,14 @@ angular.module('myApp')
             return $ctrl.open('lg');
         };
 
+        //delete a record
+        $scope.deleteHandler = function (record) {
+            var idArr = _.map(this.rows, 'id'),
+                indx = idArr.indexOf(record.id);
+            this.rows.splice(indx, 1);
+        };
+
+        //adding a new record
         $scope.addHandler = function() {
             var record = {};   //new record
             for (var i in $scope.fieldNames) {

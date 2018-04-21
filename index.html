@@ -95,7 +95,8 @@
                      </tr>
                      <tr ng-repeat="row in rows |orderBy:orderByField:reverseSort">
                         <td ng-repeat="fldName in fieldNames "> {{row[fldName]}} </td>
-                         <td style='text-align:right'><button class="btn btn-info" ng-click="editHandler(row)">Edit</button></td>
+                         <td style='text-align:right;width:18px'><button class="btn btn-info" ng-click="editHandler(row)">Edit</button></td>
+                         <td style='text-align:right;width:18px'><button class="btn btn-info" ng-click="deleteHandler(row)">Delete</button></td>
                      </tr>
                   </table>
                </div>
