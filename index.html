@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>My Table App</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="./lib/jquery-3.3.1.min.js"></script>
+      <script src="./lib/lodash.min.js"></script>
+      <script src="./lib/angular.min.js"></script>
+      <script src="./lib/angular-animate.min.js"></script>
+      <script src="./lib/angular-sanitize.min.js"></script>
+      <script src="./lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+      <link href="./lib/bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="./lib/webfonts/fontawesome-all.min.css">
+      <link rel = "stylesheet"  type = "text/css" href = "main.css" />
+      <script src="app.js"></script>
+      <script src="./components/mainCtrl.js"></script>
+      <script src="./components/fields.js"></script>
+      <script src="./components/modalInstanceCtrl.js"></script>
+   </head>
+   <body>
+      <div class="container modal-dlg" ng-app="myApp" ng-controller="mainCtrl as $ctrl">
+      <script type="text/ng-template" id="myModalContent.html">
+         <div class="modal-header">
+             <h3 class="modal-title" id="modal-title">{{$ctrl.createMode ? "Create" : "Edit "+$ctrl.origRec.id}}</h3>
+         </div>
+         <div class="modal-body" id="modal-body">
+                <div class='row'>
+                    <div ng-repeat="(key, value) in $ctrl.record" class="col-md-6 form-group">
+                          <span>{{key}}:</span>
+                          <input type="text" class="form-control" ng-model="$ctrl.record[key]">
+                          </input>
+                    </div>
+                  </div>
+         </div>
+         <div class="modal-footer">
+             <div class='error-msg'> {{$ctrl.message}}</div>
+             <button class="btn btn-info" type="button" ng-click="$ctrl.ok()">OK</button>
+             <button class="btn btn-secondary" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+         </div>
+      </script>
+      <div class="modal-parent">
+      </div>
+
+
+      <div id="accordion">
+         <div class="card">
+            <div class="card-header" id="headingOne" ng-click='fieldsPanelClickHandler()'>
+               <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Create Field Set
+                  </button>
+                  <button class="btn btn-link" style='float:right' data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <i  ng-show='fieldsPanelOpen' class="fa fa-chevron-down"></i>
+                  <i  ng-show='!fieldsPanelOpen' class="fa fa-chevron-right"></i>
+                  </button>
+               </h5>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+               <div class="card-body">
+                  <fields
+                     in-data = 'fields'
+                     >
+                  </fields>
+               </div>
+            </div>
+         </div>
+         <hr>
+         <div class="card">
+            <div class="card-header" id="headingTwo">
+               <h5 class="mb-0">
+                  Table view
+                  <div style='float:right'>
+                    <button class='btn btn-secondary' title='Add a new record' ng-click='addHandler()'>+ Add</button>
+                     <div class="btn-group" uib-dropdown dropdown-append-to-body>
+                        <button id="btn-append-to-to-body" title='Export data' type="button" class="btn btn-secondary" uib-dropdown-toggle>
+                         Export<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-to-body">
+                          <li role="menuitem"><a href="#" ng-click='export2json()'>JSON</a></li>
+                          <li role="menuitem"><a href="#" ng-click='export2csv()'>CSV</a></li>
+                        </ul>
+                      </div>
+                   </div>
+               </h5>
+            </div>
+            <div class="card-body">
+               <div style="height: 600px;overflow-x:auto;">
+                  <table>
+                     <tr>
+                        <th ng-repeat="col in fields" >
+                           <a href="#" ng-click="sortHandler(col)">
+                           {{col.columnName}} <span ng-show="orderByField == '{{col.name}}'"><span ng-show="!reverseSort" ><i class="fa fa-chevron-down"></i></span><span ng-show="reverseSort"><i class="fa fa-chevron-up"></i></span></span>
+                           </a>
+                        </th>
+                     </tr>
+                     <tr ng-repeat="row in rows |orderBy:orderByField:reverseSort">
+                        <td ng-repeat="fldName in fieldNames "> {{row[fldName]}} </td>
+                         <td style='text-align:right'><button class="btn btn-info" ng-click="editHandler(row)">Edit</button></td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

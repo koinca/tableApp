@@ -1,0 +1,69 @@
+.accordion .card-header:after {
+    font-family: 'Font Awesome 5 Free';
+    content: "\f077";
+    float: right;
+}
+.accordion .card-header.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\f067";
+}
+
+.error-msg {
+    color: red;
+    position: absolute;
+    left: 10px;
+}
+
+.delete-btn {
+        color: #A9A9A9;
+        cursor: pointer;
+        font-size: 1.2em;
+        display: inline-block;
+        border: 0px;
+}
+
+.delete-btn:hover {
+    color: #808080;
+}
+
+.field-input {
+    margin-bottom: 8px;
+}
+
+.form-inline {
+    margin-bottom: 10px;
+}
+
+.btn-link {
+    color: #000 !important;
+}
+
+a {
+    color: #000 !important;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background: silver;
+    opacity: 0.4;
+}
+
